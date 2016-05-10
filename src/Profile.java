@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 public class Profile {
-	/* create appropriate fields */
+	private int maxWordLength, minWordLength, meanWordLength;
+	private int meanWordsPerSentence, meanCharactersPerSentence;
+	private int meanNumUniqueWords;		 //mean number of unique words per 100 words
 	
 	private Profile( /* modify this */ ) {
 		/* modify this as you see fit */
@@ -21,5 +23,29 @@ public class Profile {
 	// Smaller numbers are more similar.
 	public static double similarity(Profile A, Profile B) {
 		return 0;
+	}
+
+	public int getMaxWordLength() {
+		return maxWordLength;
+	}
+
+	public int getMinWordLength() {
+		return minWordLength;
+	}
+
+	public int getMeanWordLength() {
+		return meanWordLength;
+	}
+
+	public int getMeanWordsPerSentence() {
+		return meanWordsPerSentence;
+	}
+
+	public int getMeanCharactersPerSentence() {
+		return meanCharactersPerSentence;
+	}
+
+	public int getMeanNumUniqueWords() {
+		return meanNumUniqueWords;
 	}
 }
