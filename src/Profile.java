@@ -73,17 +73,23 @@ public class Profile {
 			String s = d.getText();
 			String[] words = s.split(" ");
 			for(String word: words) {
-				if(word.length() < minWordLength) {
-					minWordLength = word.length();
-				}
+				if(word.length() < minWordLength) minWordLength = word.length();
 			}
 		}
 		return minWordLength;
 	}
 
 	public int findMaxWordLength(ArrayList<Document> docs) {
-		// TODO Auto-generated method stub
-		return 0;
+		int maxWordLength = Integer.MIN_VALUE;
+		
+		for(Document d: docs) {
+			String s = d.getText();
+			String[] words = s.split(" ");
+			for(String word: words) {
+				if(word.length() > maxWordLength) maxWordLength = word.length();
+			}
+		}
+		return maxWordLength;
 	}
 
 	public static Profile createProfileFor(Document doc) {
