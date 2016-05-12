@@ -16,7 +16,8 @@ public class Profile {
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
-	public int findMeanNumUniqueWords(ArrayList<Document> docs) {
+	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	// for now, finds num unique words for all docs
+																	// fix this later
 		HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
 		
 		for(Document d : docs) {
@@ -35,8 +36,19 @@ public class Profile {
 	}
 
 	public int findMeanWordsPerSentence(ArrayList<Document> docs) {
-		// TODO Auto-generated method stub
-		return 0;
+		int numWords = 0, numSentences = 0;
+		
+		for(Document d: docs) {
+			String s = d.getText();
+			String[] sentences = s.split(".");
+			for(String sentence : sentences) {
+				String[] words = sentence.split(" ");
+				numWords += words.length;
+				numSentences++;
+			}
+		}
+		if(numSentences == 0) return 0;
+		return numWords / numSentences;
 	}
 
 	public int findMeanWordLength(ArrayList<Document> docs) {
