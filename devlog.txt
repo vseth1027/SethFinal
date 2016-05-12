@@ -3,3 +3,8 @@ Development Log
 Day 1: 5/12/16
 - Added a dev log!
 - Created fields and getters in Profile class
+- Completed method findMeanNumUniqueWords in Profile
+- Completed method findMeanWordsPerSentence in Profile
+- Completed method findMeanWordLength in Profile
+- Completed method findMinWordLength in Profile
+- Completed method findMaxWordLength in Profile
