@@ -5,10 +5,45 @@ public class Profile {
 	private int meanWordsPerSentence, meanCharactersPerSentence;
 	private int meanNumUniqueWords;		 //mean number of unique words per 100 words
 	
-	private Profile( /* modify this */ ) {
-		/* modify this as you see fit */
+	private Profile(ArrayList<Document> docs) {
+		this.maxWordLength = findMaxWordLength(docs);
+		this.minWordLength = findMinWordLength(docs);
+		this.meanWordLength = findMeanWorldLength(docs);
+		this.meanWordsPerSentence = findMeanWordsPerSentence(docs);
+		this.meanCharactersPerSentence = findMeanCharactersPerSentence(docs);
+		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
+	public int findMeanNumUniqueWords(ArrayList<Document> docs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int findMeanCharactersPerSentence(ArrayList<Document> docs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int findMeanWordsPerSentence(ArrayList<Document> docs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int findMeanWorldLength(ArrayList<Document> docs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int findMinWordLength(ArrayList<Document> docs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int findMaxWordLength(ArrayList<Document> docs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public static Profile createProfileFor(Document doc) {
 		/* modify this */
 		return null;
