@@ -52,8 +52,18 @@ public class Profile {
 	}
 
 	public int findMeanWordLength(ArrayList<Document> docs) {
-		// TODO Auto-generated method stub
-		return 0;
+		int totalWordLengths = 0, numWords = 0;
+		
+		for(Document d: docs) {
+			String s = d.getText();
+			String[] words = s.split(" ");
+			for(String word: words) {
+				totalWordLengths += word.length();
+				numWords++;
+			}
+		}
+		if(numWords == 0) return 0;
+		return totalWordLengths / numWords;
 	}
 
 	public int findMinWordLength(ArrayList<Document> docs) {
