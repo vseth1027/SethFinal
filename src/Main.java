@@ -7,7 +7,7 @@ public class Main {
 		ArrayList<Document> docs = new ArrayList<Document>();
 		
 		// read training data
-		docs = DataReader.readTrainingFiles("c:\\data\\authors\\");
+		docs = DataReader.readTrainingFiles("c:\\data\\authors\\"); //change filepath
 		
 		// THIS CODE MAKES RANDOM GUESSES
 		
@@ -19,7 +19,7 @@ public class Main {
 		Tester t = new Tester();
 		
 		// Get list of unknown test documents
-		ArrayList<Document> testdocs = t.getTestDocuments("c:\\data\\authorstest\\");
+		ArrayList<Document> testdocs = t.getTestDocuments("c:\\data\\authorstest\\");	//change filepath
 
 		// HashMap for my answers
 		HashMap<Integer, String> answers = new HashMap<Integer, String>();
