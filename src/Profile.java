@@ -1,22 +1,32 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Profile {
 	private int maxWordLength, minWordLength, meanWordLength;
 	private int meanWordsPerSentence, meanCharactersPerSentence;
 	private int meanNumUniqueWords;		 //mean number of unique words per 100 words
+	private static final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
 		this.maxWordLength = findMaxWordLength(docs);
 		this.minWordLength = findMinWordLength(docs);
-		this.meanWordLength = findMeanWorldLength(docs);
+		this.meanWordLength = findMeanWordLength(docs);
 		this.meanWordsPerSentence = findMeanWordsPerSentence(docs);
 		this.meanCharactersPerSentence = findMeanCharactersPerSentence(docs);
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
 	public int findMeanNumUniqueWords(ArrayList<Document> docs) {
-		// TODO Auto-generated method stub
-		return 0;
+		HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+		
+		for(Document d : docs) {
+			String s = d.getText();
+			String[] words = s.split(" ");
+			for(String w : words) {
+				if(!wordMap.containsKey(w)) wordMap.put(w, INITIAL);
+			}
+		}
+		return wordMap.size();
 	}
 
 	public int findMeanCharactersPerSentence(ArrayList<Document> docs) {
@@ -29,7 +39,7 @@ public class Profile {
 		return 0;
 	}
 
-	public int findMeanWorldLength(ArrayList<Document> docs) {
+	public int findMeanWordLength(ArrayList<Document> docs) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
