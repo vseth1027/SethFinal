@@ -8,8 +8,8 @@ public class Profile {
 	private static final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
-		setWordFields(docs);
-		setSentenceFields(docs);
+		
+		setSentenceandWordFields(docs);
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
@@ -46,15 +46,25 @@ public class Profile {
 		return true;
 	}
 
-	public void setSentenceFields(ArrayList<Document> docs) {
+	public void setSentenceandWordFields(ArrayList<Document> docs) {
 		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
+		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
+		int totalWordLengths = 0;
 		
 		for(Document d: docs) {
 			String s = d.getText();
+			
 			String[] sentences = s.split(".");
+			
 			for(String sentence : sentences) {
 				totalNumCharacters += sentence.length();
 				String[] words = sentence.split(" ");
+				
+				for(String word: words) {
+					if(word.length() < minWordLength) minWordLength = word.length();
+					if(word.length() > maxWordLength) maxWordLength = word.length();
+					totalWordLengths += word.length();
+				}
 				numWords += words.length;
 				numSentences++;
 			}
@@ -62,23 +72,6 @@ public class Profile {
 		if(numSentences != 0) {
 			meanCharactersPerSentence = totalNumCharacters / numSentences;
 			meanWordsPerSentence = numWords / numSentences;
-		}
-		
-	}
-
-	public void setWordFields(ArrayList<Document> docs) { // change to void and combine
-		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
-		int totalWordLengths = 0, numWords = 0;
-		
-		for(Document d: docs) {
-			String s = d.getText();
-			String[] words = s.split(" ");
-			for(String word: words) {
-				if(word.length() < minWordLength) minWordLength = word.length();
-				if(word.length() > maxWordLength) maxWordLength = word.length();
-				totalWordLengths += word.length();
-				numWords++;
-			}
 		}
 		this.minWordLength = minWordLength;
 		this.maxWordLength = maxWordLength;
