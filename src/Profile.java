@@ -8,10 +8,8 @@ public class Profile {
 	private static final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
-		this.maxWordLength = findMaxWordLength(docs);
-		this.minWordLength = findMinWordLength(docs);
-		this.meanWordLength = findMeanWordLength(docs);
-		findMeanCharactersandWordsPerSentence(docs);
+		setWordFields(docs);
+		setSentenceFields(docs);
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
@@ -48,7 +46,7 @@ public class Profile {
 		return true;
 	}
 
-	public void findMeanCharactersandWordsPerSentence(ArrayList<Document> docs) {
+	public void setSentenceFields(ArrayList<Document> docs) {
 		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
 		
 		for(Document d: docs) {
@@ -68,45 +66,23 @@ public class Profile {
 		
 	}
 
-	public int findMeanWordLength(ArrayList<Document> docs) {
+	public void setWordFields(ArrayList<Document> docs) { // change to void and combine
+		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
 		int totalWordLengths = 0, numWords = 0;
 		
 		for(Document d: docs) {
 			String s = d.getText();
 			String[] words = s.split(" ");
 			for(String word: words) {
+				if(word.length() < minWordLength) minWordLength = word.length();
+				if(word.length() > maxWordLength) maxWordLength = word.length();
 				totalWordLengths += word.length();
 				numWords++;
 			}
 		}
-		if(numWords == 0) return 0;
-		return totalWordLengths / numWords;
-	}
-
-	public int findMinWordLength(ArrayList<Document> docs) {
-		int minWordLength = Integer.MAX_VALUE;
-		
-		for(Document d: docs) {
-			String s = d.getText();
-			String[] words = s.split(" ");
-			for(String word: words) {
-				if(word.length() < minWordLength) minWordLength = word.length();
-			}
-		}
-		return minWordLength;
-	}
-
-	public int findMaxWordLength(ArrayList<Document> docs) {
-		int maxWordLength = Integer.MIN_VALUE;
-		
-		for(Document d: docs) {
-			String s = d.getText();
-			String[] words = s.split(" ");
-			for(String word: words) {
-				if(word.length() > maxWordLength) maxWordLength = word.length();
-			}
-		}
-		return maxWordLength;
+		this.minWordLength = minWordLength;
+		this.maxWordLength = maxWordLength;
+		if(numWords != 0) this.meanWordLength = totalWordLengths / numWords;
 	}
 
 	public static Profile createProfileFor(Document doc) {
