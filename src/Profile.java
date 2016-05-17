@@ -9,47 +9,48 @@ public class Profile {
 	
 	private Profile(ArrayList<Document> docs) {
 		
-		setSentenceandWordFields(docs);
-		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
+		setFields(docs);
 	}
 	
-	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	
-		
-		int totalNumUniqueWords = 0, count = 0;
-		
-		for(Document d : docs) {
-			String s = d.getText();
-			String[] words = s.split(" ");
-			for(int i = 0; i < words.length; i+= 100) {
-				int uniqueWords = 0;
-				for( int j = i; j < j + 100; j++) {
-					if(isInBounds(words, j)) {
-						System.err.println("running findMeanNumUniqueWords");
-						String word = words[j];
-						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
-						if(!wordMap.containsKey(word)) {
-							wordMap.put(word, INITIAL);
-							uniqueWords++;
-						}
-					}
-				}
-				totalNumUniqueWords += uniqueWords;
-				count++;
-			}
-		}
-		if(count == 0) return 0;
-		return totalNumUniqueWords / count;
-	}
+//	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	
+//		
+//		int totalNumUniqueWords = 0, count = 0;
+//		
+//		for(Document d : docs) {
+//			String s = d.getText();
+//			String[] words = s.split(" ");
+//			
+//			for(int i = 0; i < words.length; i+= 100) {
+//				int uniqueWords = 0;
+//				for( int j = i; j < j + 100; j++) {
+//					if(isInBounds(words, j)) {
+//						System.err.println("running findMeanNumUniqueWords");
+//						String word = words[j];
+//						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+//						if(!wordMap.containsKey(word)) {
+//							wordMap.put(word, INITIAL);
+//							uniqueWords++;
+//						}
+//					}
+//				}
+//				totalNumUniqueWords += uniqueWords;
+//				count++;
+//			}
+//		}
+//		if(count == 0) return 0;
+//		return totalNumUniqueWords / count;
+//	}
 
 	public boolean isInBounds(String[] words, int index) {
 		if(index < 0 || index >= words.length) return false;
 		return true;
 	}
 
-	public void setSentenceandWordFields(ArrayList<Document> docs) {
+	public void setFields(ArrayList<Document> docs) {
 		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
 		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
 		int totalWordLengths = 0;
+		int totalNumUniqueWords = 0, count = 0;
 		
 		for(Document d: docs) {
 			String s = d.getText();
@@ -65,10 +66,28 @@ public class Profile {
 					if(word.length() > maxWordLength) maxWordLength = word.length();
 					totalWordLengths += word.length();
 				}
-				numWords += words.length;
-				numSentences++;
+				
+				for(int i = 0; i < words.length; i+= 100) {
+					int uniqueWords = 0;
+					for( int j = i; j < j + 100; j++) {
+						System.err.println("running most inner loop: setfields");
+						if(isInBounds(words, j)) {
+							String word = words[j];
+							HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+							if(!wordMap.containsKey(word)) {
+								wordMap.put(word, INITIAL);
+								uniqueWords++;
+							}
+						}
+					}
+					totalNumUniqueWords += uniqueWords;
+					count++;
+					numWords += words.length;
+					numSentences++;
+				}
 			}
 		}
+			
 		if(numSentences != 0) {
 			meanCharactersPerSentence = totalNumCharacters / numSentences;
 			meanWordsPerSentence = numWords / numSentences;
@@ -76,6 +95,7 @@ public class Profile {
 		this.minWordLength = minWordLength;
 		this.maxWordLength = maxWordLength;
 		if(numWords != 0) this.meanWordLength = totalWordLengths / numWords;
+		if(count != 0) 	this.meanNumUniqueWords =  totalNumUniqueWords / count;
 	}
 
 	public static Profile createProfileFor(Document doc) {
