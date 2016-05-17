@@ -28,6 +28,7 @@ public class ProfileTester {
 			if(a.equals(names[1])) 	docs2.add(d);
 			if(a.equals(names[2]))	docs3.add(d);
 			if(a.equals(names[3]))	docs4.add(d);
+			System.out.println("looping through authors documents");
 		}
 		
 
