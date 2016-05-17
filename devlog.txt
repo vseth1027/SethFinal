@@ -8,3 +8,14 @@ Day 1: 5/12/16
 - Completed method findMeanWordLength in Profile
 - Completed method findMinWordLength in Profile
 - Completed method findMaxWordLength in Profile
+
+To do: 	Complete methods findMeanCharactersPerSentence and createProfileFor in Profile
+
+Day 2: 5/16/16
+- Completed method findMeanCharactersPerSentence in Profile
+- Completed method createProfileFor in Profile
+- Fixed method findMeanNumUniqueWords in Profile
+- Modified ProfileTester to begin creating Profiles for each author
+- Created toString method in Profile
+
+To do: Add authors files into project and print out info about each author's profile
