@@ -16,23 +16,44 @@ public class Profile {
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
-	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	// for now, finds num unique words for all docs
-																	// fix this later
-		HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	// add to log and commit changes
+		
+		int totalNumUniqueWords = 0, count = 0;
 		
 		for(Document d : docs) {
 			String s = d.getText();
 			String[] words = s.split(" ");
-			for(String w : words) {
-				if(!wordMap.containsKey(w)) wordMap.put(w, INITIAL);
+			for(int i = 0; i < words.length; i+= 100) {
+				int uniqueWords = 0;
+				for( int j = i; j < j + 100; j++) {
+					String word = words[j];
+					HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+					if(!wordMap.containsKey(word)) {
+						wordMap.put(word, INITIAL);
+						uniqueWords++;
+					}
+				}
+				totalNumUniqueWords += uniqueWords;
+				count++;
 			}
 		}
-		return wordMap.size();
+		if(count == 0) return 0;
+		return totalNumUniqueWords / count;
 	}
 
-	public int findMeanCharactersPerSentence(ArrayList<Document> docs) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int findMeanCharactersPerSentence(ArrayList<Document> docs) { //add to log and commit changes
+		int totalNumCharacters = 0, numSentences = 0;
+		
+		for(Document d: docs) {
+			String s = d.getText();
+			String[] sentences = s.split(".");
+			for(String sentence : sentences) {
+				totalNumCharacters += sentence.length();
+				numSentences++;
+			}
+		}
+		if(numSentences == 0) return 0;
+		return totalNumCharacters / numSentences;
 	}
 
 	public int findMeanWordsPerSentence(ArrayList<Document> docs) {
@@ -97,9 +118,8 @@ public class Profile {
 		return null;
 	}
 	
-	public static Profile createProfileFor(ArrayList<Document> docs) {
-		/* modify this */
-		return null;
+	public static Profile createProfileFor(ArrayList<Document> docs) {	// add to log and commit changes
+		return new Profile(docs);
 	}
 	
 	// Return the n-dimensional distance between A and B
@@ -131,4 +151,13 @@ public class Profile {
 	public int getMeanNumUniqueWords() {
 		return meanNumUniqueWords;
 	}
+
+	@Override
+	public String toString() {
+		return "Profile [maxWordLength=" + maxWordLength + ", minWordLength=" + minWordLength + ", meanWordLength="
+				+ meanWordLength + ", meanWordsPerSentence=" + meanWordsPerSentence + ", meanCharactersPerSentence="
+				+ meanCharactersPerSentence + ", meanNumUniqueWords=" + meanNumUniqueWords + "]";
+	}
+	
+	
 }
