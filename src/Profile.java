@@ -16,7 +16,7 @@ public class Profile {
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
-	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	// add to log and commit changes
+	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	
 		
 		int totalNumUniqueWords = 0, count = 0;
 		
@@ -26,11 +26,13 @@ public class Profile {
 			for(int i = 0; i < words.length; i+= 100) {
 				int uniqueWords = 0;
 				for( int j = i; j < j + 100; j++) {
-					String word = words[j];
-					HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
-					if(!wordMap.containsKey(word)) {
-						wordMap.put(word, INITIAL);
-						uniqueWords++;
+					if(isInBounds(words, j)) {
+						String word = words[j];
+						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+						if(!wordMap.containsKey(word)) {
+							wordMap.put(word, INITIAL);
+							uniqueWords++;
+						}
 					}
 				}
 				totalNumUniqueWords += uniqueWords;
@@ -41,7 +43,12 @@ public class Profile {
 		return totalNumUniqueWords / count;
 	}
 
-	public int findMeanCharactersPerSentence(ArrayList<Document> docs) { //add to log and commit changes
+	public boolean isInBounds(String[] words, int index) {
+		if(index < 0 || index >= words.length) return false;
+		return true;
+	}
+
+	public int findMeanCharactersPerSentence(ArrayList<Document> docs) { 
 		int totalNumCharacters = 0, numSentences = 0;
 		
 		for(Document d: docs) {
@@ -118,7 +125,7 @@ public class Profile {
 		return null;
 	}
 	
-	public static Profile createProfileFor(ArrayList<Document> docs) {	// add to log and commit changes
+	public static Profile createProfileFor(ArrayList<Document> docs) {	
 		return new Profile(docs);
 	}
 	
