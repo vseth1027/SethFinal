@@ -53,8 +53,8 @@ public class Profile {
 		int totalNumUniqueWords = 0, count = 0;
 		
 		for(Document d: docs) {
+			//System.err.println("outer loop is running");
 			String s = d.getText();
-			
 			String[] sentences = s.split(".");
 			
 			for(String sentence : sentences) {
@@ -66,25 +66,26 @@ public class Profile {
 					if(word.length() > maxWordLength) maxWordLength = word.length();
 					totalWordLengths += word.length();
 				}
-				
-				for(int i = 0; i < words.length; i+= 100) {
-					int uniqueWords = 0;
-					for( int j = i; j < j + 100; j++) {
-						System.err.println("running most inner loop: setfields");
-						if(isInBounds(words, j)) {
-							String word = words[j];
-							HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
-							if(!wordMap.containsKey(word)) {
-								wordMap.put(word, INITIAL);
-								uniqueWords++;
-							}
+				numWords += words.length;
+				numSentences++;
+			}	
+			
+			String words[] = s.split(" ");
+			for(int i = 0; i < words.length; i+= 100) {
+				int uniqueWords = 0;
+				for( int j = i; j < j + 100; j++) {
+					System.err.println("running most inner loop: setfields");
+					if(isInBounds(words, j)) {
+						String word = words[j];
+						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
+						if(!wordMap.containsKey(word)) {
+							wordMap.put(word, INITIAL);
+							uniqueWords++;
 						}
 					}
-					totalNumUniqueWords += uniqueWords;
-					count++;
-					numWords += words.length;
-					numSentences++;
 				}
+				totalNumUniqueWords += uniqueWords;
+				count++;
 			}
 		}
 			
