@@ -19,3 +19,11 @@ Day 2: 5/16/16
 - Created toString method in Profile
 
 To do: Add authors files into project and print out info about each author's profile
+
+Day 3: 5/17/16
+- Added authors files to project
+- Updated filepaths in ProfileTester
+- added method isInBounds in Profile
+- Combined all field setting methods in Profile into one large method
+
+To do: increase speed of setFields method in Profile to see whether methods work correctly
