@@ -11,8 +11,7 @@ public class Profile {
 		this.maxWordLength = findMaxWordLength(docs);
 		this.minWordLength = findMinWordLength(docs);
 		this.meanWordLength = findMeanWordLength(docs);
-		this.meanWordsPerSentence = findMeanWordsPerSentence(docs);
-		this.meanCharactersPerSentence = findMeanCharactersPerSentence(docs);
+		findMeanCharactersandWordsPerSentence(docs);
 		this.meanNumUniqueWords = findMeanNumUniqueWords(docs);
 	}
 	
@@ -27,6 +26,7 @@ public class Profile {
 				int uniqueWords = 0;
 				for( int j = i; j < j + 100; j++) {
 					if(isInBounds(words, j)) {
+						System.err.println("running findMeanNumUniqueWords");
 						String word = words[j];
 						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
 						if(!wordMap.containsKey(word)) {
@@ -48,35 +48,24 @@ public class Profile {
 		return true;
 	}
 
-	public int findMeanCharactersPerSentence(ArrayList<Document> docs) { 
-		int totalNumCharacters = 0, numSentences = 0;
+	public void findMeanCharactersandWordsPerSentence(ArrayList<Document> docs) {
+		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
 		
 		for(Document d: docs) {
 			String s = d.getText();
 			String[] sentences = s.split(".");
 			for(String sentence : sentences) {
 				totalNumCharacters += sentence.length();
-				numSentences++;
-			}
-		}
-		if(numSentences == 0) return 0;
-		return totalNumCharacters / numSentences;
-	}
-
-	public int findMeanWordsPerSentence(ArrayList<Document> docs) {
-		int numWords = 0, numSentences = 0;
-		
-		for(Document d: docs) {
-			String s = d.getText();
-			String[] sentences = s.split(".");
-			for(String sentence : sentences) {
 				String[] words = sentence.split(" ");
 				numWords += words.length;
 				numSentences++;
 			}
 		}
-		if(numSentences == 0) return 0;
-		return numWords / numSentences;
+		if(numSentences != 0) {
+			meanCharactersPerSentence = totalNumCharacters / numSentences;
+			meanWordsPerSentence = numWords / numSentences;
+		}
+		
 	}
 
 	public int findMeanWordLength(ArrayList<Document> docs) {
