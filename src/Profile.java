@@ -24,14 +24,19 @@ public class Profile {
 		for(Document d: docs) {
 			//System.err.println("outer loop is running");
 			String s = d.getText();
-			String[] sentences = s.split(".");
+			String[] sentences = s.split("\\.");
 			
+			//System.out.println("LENGTH: " + sentences.length);
 			for(String sentence : sentences) {
 				totalNumCharacters += sentence.length();
 				String[] words = sentence.split(" ");
 				
 				for(String word: words) {
-					if(word.length() < minWordLength) minWordLength = word.length();
+					if(word.length() < minWordLength) {
+						minWordLength = word.length();
+						//System.err.println("inner loop is running");
+					}
+	
 					if(word.length() > maxWordLength) maxWordLength = word.length();
 					totalWordLengths += word.length();
 				}
@@ -89,7 +94,7 @@ public class Profile {
 	public String toString() {
 		return "Profile [maxWordLength=" + maxWordLength + ", minWordLength=" + minWordLength + ", meanWordLength="
 				+ meanWordLength + ", meanWordsPerSentence=" + meanWordsPerSentence + ", meanCharactersPerSentence="
-				+ meanCharactersPerSentence + "," + "]";
+				+ meanCharactersPerSentence  + "]";
 	}
 	
 	
