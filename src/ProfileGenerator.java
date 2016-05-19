@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class ProfileGenerator {
 	static Profile waldProfile, baileyProfile, higginsProfile, maynardProfile;
-	public static void main(String[] args) {
+	
+	public static void generateProfiles() {
 	
 		// list of all documents
 		ArrayList<Document> docs = new ArrayList<Document>();
