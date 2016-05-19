@@ -27,3 +27,14 @@ Day 3: 5/17/16
 - Combined all field setting methods in Profile into one large method
 
 To do: increase speed of setFields method in Profile to see whether methods work correctly
+
+Day 4: 5/19/16
+- Deleted field and getter method for findMeanNumUniqueNumWords in Profile
+- Wrote method findLeast in Main
+- Created method generateProfiles in ProfileGenerator
+- Created static variables for each author's profile in ProfileGenerator
+- Generated getters for the above mentioned variables
+- Overloaded method createProfileFor in Profile
+- Wrote method similarity in Profile
+
+To do: implement a field in Profile dealing with n-gram word frequency
