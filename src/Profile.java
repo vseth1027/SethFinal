@@ -4,42 +4,12 @@ import java.util.HashMap;
 public class Profile {
 	private int maxWordLength, minWordLength, meanWordLength;
 	private int meanWordsPerSentence, meanCharactersPerSentence;
-	private int meanNumUniqueWords;		 //mean number of unique words per 100 words
 	private static final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
 		
 		setFields(docs);
 	}
-	
-//	public int findMeanNumUniqueWords(ArrayList<Document> docs) {	
-//		
-//		int totalNumUniqueWords = 0, count = 0;
-//		
-//		for(Document d : docs) {
-//			String s = d.getText();
-//			String[] words = s.split(" ");
-//			
-//			for(int i = 0; i < words.length; i+= 100) {
-//				int uniqueWords = 0;
-//				for( int j = i; j < j + 100; j++) {
-//					if(isInBounds(words, j)) {
-//						System.err.println("running findMeanNumUniqueWords");
-//						String word = words[j];
-//						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
-//						if(!wordMap.containsKey(word)) {
-//							wordMap.put(word, INITIAL);
-//							uniqueWords++;
-//						}
-//					}
-//				}
-//				totalNumUniqueWords += uniqueWords;
-//				count++;
-//			}
-//		}
-//		if(count == 0) return 0;
-//		return totalNumUniqueWords / count;
-//	}
 
 	public boolean isInBounds(String[] words, int index) {
 		if(index < 0 || index >= words.length) return false;
@@ -50,7 +20,6 @@ public class Profile {
 		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
 		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
 		int totalWordLengths = 0;
-		int totalNumUniqueWords = 0, count = 0;
 		
 		for(Document d: docs) {
 			//System.err.println("outer loop is running");
@@ -70,23 +39,6 @@ public class Profile {
 				numSentences++;
 			}	
 			
-			String words[] = s.split(" ");
-			for(int i = 0; i < words.length; i+= 100) {
-				int uniqueWords = 0;
-				for( int j = i; j < j + 100; j++) {
-					System.err.println("running most inner loop: setfields");
-					if(isInBounds(words, j)) {
-						String word = words[j];
-						HashMap<String, Integer> wordMap = new HashMap<String, Integer>();
-						if(!wordMap.containsKey(word)) {
-							wordMap.put(word, INITIAL);
-							uniqueWords++;
-						}
-					}
-				}
-				totalNumUniqueWords += uniqueWords;
-				count++;
-			}
 		}
 			
 		if(numSentences != 0) {
@@ -96,7 +48,6 @@ public class Profile {
 		this.minWordLength = minWordLength;
 		this.maxWordLength = maxWordLength;
 		if(numWords != 0) this.meanWordLength = totalWordLengths / numWords;
-		if(count != 0) 	this.meanNumUniqueWords =  totalNumUniqueWords / count;
 	}
 
 	public static Profile createProfileFor(Document doc) {
@@ -134,15 +85,11 @@ public class Profile {
 		return meanCharactersPerSentence;
 	}
 
-	public int getMeanNumUniqueWords() {
-		return meanNumUniqueWords;
-	}
-
 	@Override
 	public String toString() {
 		return "Profile [maxWordLength=" + maxWordLength + ", minWordLength=" + minWordLength + ", meanWordLength="
 				+ meanWordLength + ", meanWordsPerSentence=" + meanWordsPerSentence + ", meanCharactersPerSentence="
-				+ meanCharactersPerSentence + ", meanNumUniqueWords=" + meanNumUniqueWords + "]";
+				+ meanCharactersPerSentence + "," + "]";
 	}
 	
 	
