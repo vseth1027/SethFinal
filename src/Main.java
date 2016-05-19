@@ -7,6 +7,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		ArrayList<Document> docs = new ArrayList<Document>();
+		ProfileGenerator.generateProfiles();
 		
 		// read training data
 		docs = DataReader.readTrainingFiles("D:\\JavaVidushi\\SethFinal\\authors"); 
@@ -15,7 +16,6 @@ public class Main {
 		
 		// array of all author names
 		String[] names = {"matthew_wald", "jeff_bailey", "michelle_higgins", "micheline_maynard"};
-		Random r = new Random();
 		
 		// Tester object
 		Tester t = new Tester();
@@ -35,6 +35,8 @@ public class Main {
 		// Loop through document list.  Map each document id to a random author name
 		for (Document d:testdocs) {
 			Profile temp = Profile.createProfileFor(d);
+			
+			
 			double sim1 = Profile.similarity(temp, waldProfile);
 			double sim2 = Profile.similarity(temp, baileyProfile);
 			double sim3 = Profile.similarity(temp, higginsProfile);
@@ -42,7 +44,10 @@ public class Main {
 			double least = findLeast(sim1, sim2, sim3, sim4);
 			
 			if(least == sim1) answers.put(d.getId(), names[WALD]);
-			answers.put(d.getId(), names[r.nextInt(4)]);	// make random guesses
+			if(least == sim2) answers.put(d.getId(), names[BAILEY]);
+			if(least == sim3) answers.put(d.getId(), names[HIGGINS]);
+			if(least == sim4) answers.put(d.getId(), names[MAYNARD]);
+		
 		}
 		
 		// Check the solutions
