@@ -4,7 +4,6 @@ import java.util.HashMap;
 public class Profile {
 	private int maxWordLength, minWordLength, meanWordLength;
 	private int meanWordsPerSentence, meanCharactersPerSentence;
-	private static final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
 		
@@ -14,6 +13,16 @@ public class Profile {
 	public boolean isInBounds(String[] words, int index) {
 		if(index < 0 || index >= words.length) return false;
 		return true;
+	}
+	
+	public static double getDistBetween(Profile p1, Profile p2) { // the smaller the value, the more similar
+		double maxWordDiff = (double)p1.getMaxWordLength() - p2.getMaxWordLength();
+		double minWordDiff = (double)(p1.getMinWordLength()) - p2.getMinWordLength();
+		double meanWordLengthDiff = (double)(p1.getMeanWordLength()) - p2.getMeanWordLength();
+		double meanWordsSentDiff = (double)(p1.getMeanWordsPerSentence()) - p2.getMeanWordsPerSentence();
+		double meanCharacterSentDiff = (double)(p1.getMeanCharactersPerSentence()) - p2.getMeanCharactersPerSentence();
+		return Math.sqrt( (maxWordDiff*maxWordDiff ) + (minWordDiff*minWordDiff) + (meanWordLengthDiff*meanWordLengthDiff) +
+				(meanWordsSentDiff*meanWordsSentDiff) + (meanCharacterSentDiff*meanCharacterSentDiff));
 	}
 
 	public void setFields(ArrayList<Document> docs) {
