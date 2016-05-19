@@ -6,53 +6,52 @@ public class Profile {
 	private int meanWordsPerSentence, meanCharactersPerSentence;
 	
 	private Profile(ArrayList<Document> docs) {
-		
-		setFields(docs);
+		String text = "";
+		for(Document d : docs) {
+			String s = d.getText();
+			text += s;
+		}
+		setFields(text);
 	}
 
 	public boolean isInBounds(String[] words, int index) {
 		if(index < 0 || index >= words.length) return false;
 		return true;
 	}
-	
-	public static double getDistBetween(Profile p1, Profile p2) { // the smaller the value, the more similar
+
+	// Return the n-dimensional distance between A and B
+	// Smaller numbers are more similar.
+	public static double similarity(Profile p1, Profile p2) { 
+		
+		System.out.println(p1 +  " " + p2);
 		double maxWordDiff = (double)p1.getMaxWordLength() - p2.getMaxWordLength();
 		double minWordDiff = (double)(p1.getMinWordLength()) - p2.getMinWordLength();
 		double meanWordLengthDiff = (double)(p1.getMeanWordLength()) - p2.getMeanWordLength();
 		double meanWordsSentDiff = (double)(p1.getMeanWordsPerSentence()) - p2.getMeanWordsPerSentence();
 		double meanCharacterSentDiff = (double)(p1.getMeanCharactersPerSentence()) - p2.getMeanCharactersPerSentence();
+		
 		return Math.sqrt( (maxWordDiff*maxWordDiff ) + (minWordDiff*minWordDiff) + (meanWordLengthDiff*meanWordLengthDiff) +
 				(meanWordsSentDiff*meanWordsSentDiff) + (meanCharacterSentDiff*meanCharacterSentDiff));
 	}
 
-	public void setFields(ArrayList<Document> docs) {
+	public void setFields(String text) {
 		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
 		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
 		int totalWordLengths = 0;
 		
-		for(Document d: docs) {
-			//System.err.println("outer loop is running");
-			String s = d.getText();
-			String[] sentences = s.split("\\.");
-			
-			//System.out.println("LENGTH: " + sentences.length);
-			for(String sentence : sentences) {
-				totalNumCharacters += sentence.length();
-				String[] words = sentence.split(" ");
+		String[] sentences = text.split("\\.");
+		for(String sentence : sentences) {
+			totalNumCharacters += sentence.length();
+			String[] words = sentence.split(" ");
 				
-				for(String word: words) {
-					if(word.length() < minWordLength) {
-						minWordLength = word.length();
-						//System.err.println("inner loop is running");
-					}
+			for(String word: words) {
+				if(word.length() < minWordLength) minWordLength = word.length();
 	
-					if(word.length() > maxWordLength) maxWordLength = word.length();
-					totalWordLengths += word.length();
-				}
-				numWords += words.length;
-				numSentences++;
-			}	
-			
+				if(word.length() > maxWordLength) maxWordLength = word.length();
+				totalWordLengths += word.length();
+			}
+			numWords += words.length;
+			numSentences++;
 		}
 			
 		if(numSentences != 0) {
@@ -65,20 +64,15 @@ public class Profile {
 	}
 
 	public static Profile createProfileFor(Document doc) {
-		/* modify this */
-		return null;
+		ArrayList<Document> docs = new ArrayList<Document>();
+		docs.add(doc);
+		return new Profile(docs);
 	}
 	
 	public static Profile createProfileFor(ArrayList<Document> docs) {	
 		return new Profile(docs);
 	}
 	
-	// Return the n-dimensional distance between A and B
-	// Smaller numbers are more similar.
-	public static double similarity(Profile A, Profile B) {
-		return 0;
-	}
-
 	public int getMaxWordLength() {
 		return maxWordLength;
 	}
