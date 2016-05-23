@@ -38,3 +38,11 @@ Day 4: 5/19/16
 - Wrote method similarity in Profile
 
 To do: implement a field in Profile dealing with n-gram word frequency
+
+Day 5: 5/23/16
+- Created Word class
+- Generated getters and setters in Word class
+- Created HashMap in Profile's setFields method
+- Began to implement word comparison by frequency
+
+To do: finish implementing n-gram comparison of words
