@@ -26,7 +26,7 @@ public class Word {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() {	// ask Mr. Dobervich what this does
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
