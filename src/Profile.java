@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Profile {
 	private int maxWordLength, minWordLength, meanWordLength;
 	private int meanWordsPerSentence, meanCharactersPerSentence;
+	private final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
 		String text = "";
@@ -38,6 +41,7 @@ public class Profile {
 		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
 		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
 		int totalWordLengths = 0;
+		HashMap<String, Word> wordMap= new HashMap<String, Word>();
 		
 		String[] sentences = text.split("\\.");
 		for(String sentence : sentences) {
@@ -49,10 +53,20 @@ public class Profile {
 	
 				if(word.length() > maxWordLength) maxWordLength = word.length();
 				totalWordLengths += word.length();
+				
+				if(!wordMap.containsKey(word)) {
+					wordMap.put(word, new Word(word, INITIAL));
+				} else {
+					Word w = wordMap.get(word);
+					wordMap.put(word, new Word(word,w.getFrequency() + 1));
+				}
 			}
 			numWords += words.length;
 			numSentences++;
 		}
+		
+		ArrayList<Word> sortedWords = (ArrayList<Word>) wordMap.values();		// fix these parts
+		Collections.sort(sortedWords);											// figure out problem
 			
 		if(numSentences != 0) {
 			meanCharactersPerSentence = totalNumCharacters / numSentences;
@@ -61,6 +75,7 @@ public class Profile {
 		this.minWordLength = minWordLength;
 		this.maxWordLength = maxWordLength;
 		if(numWords != 0) this.meanWordLength = totalWordLengths / numWords;
+		
 	}
 
 	public static Profile createProfileFor(Document doc) {
