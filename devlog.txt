@@ -51,5 +51,6 @@ Day 6: 5/24/16
 - Wrote a toString method in Word
 - Made Word implement the comparable interface
 - Finished implementing comparison by word frequency in Profile
+- Made all filepaths relative
 
 To do: Begin and finish write up for this project
