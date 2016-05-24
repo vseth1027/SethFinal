@@ -6,6 +6,7 @@ import java.util.List;
 public class Profile {
 	private int maxWordLength, minWordLength, meanWordLength;
 	private int meanWordsPerSentence, meanCharactersPerSentence;
+	private ArrayList<Word> mostFreqWords;
 	private final int INITIAL = 1;
 	
 	private Profile(ArrayList<Document> docs) {
@@ -27,14 +28,16 @@ public class Profile {
 	public static double similarity(Profile p1, Profile p2) { 
 		
 		System.out.println(p1 +  " " + p2);
-		double maxWordDiff = (double)p1.getMaxWordLength() - p2.getMaxWordLength();
-		double minWordDiff = (double)(p1.getMinWordLength()) - p2.getMinWordLength();
-		double meanWordLengthDiff = (double)(p1.getMeanWordLength()) - p2.getMeanWordLength();
-		double meanWordsSentDiff = (double)(p1.getMeanWordsPerSentence()) - p2.getMeanWordsPerSentence();
-		double meanCharacterSentDiff = (double)(p1.getMeanCharactersPerSentence()) - p2.getMeanCharactersPerSentence();
+//		double maxWordDiff = (double)p1.getMaxWordLength() - p2.getMaxWordLength();
+//		double minWordDiff = (double)(p1.getMinWordLength()) - p2.getMinWordLength();
+//		double meanWordLengthDiff = (double)(p1.getMeanWordLength()) - p2.getMeanWordLength();
+//		double meanWordsSentDiff = (double)(p1.getMeanWordsPerSentence()) - p2.getMeanWordsPerSentence();
+//		double meanCharacterSentDiff = (double)(p1.getMeanCharactersPerSentence()) - p2.getMeanCharactersPerSentence();
+//		
+//		return Math.sqrt( (maxWordDiff*maxWordDiff ) + (minWordDiff*minWordDiff) + (meanWordLengthDiff*meanWordLengthDiff) +
+//				(meanWordsSentDiff*meanWordsSentDiff) + (meanCharacterSentDiff*meanCharacterSentDiff));
 		
-		return Math.sqrt( (maxWordDiff*maxWordDiff ) + (minWordDiff*minWordDiff) + (meanWordLengthDiff*meanWordLengthDiff) +
-				(meanWordsSentDiff*meanWordsSentDiff) + (meanCharacterSentDiff*meanCharacterSentDiff));
+		double diff1 = 
 	}
 
 	public void setFields(String text) {
@@ -65,9 +68,12 @@ public class Profile {
 			numSentences++;
 		}
 		
-		ArrayList<Word> sortedWords = (ArrayList<Word>) wordMap.values();		// fix these parts
-		Collections.sort(sortedWords);											// figure out problem
-			
+		ArrayList<Word> sortedWords = new ArrayList<Word>();
+		sortedWords.addAll(wordMap.values());							
+		Collections.sort(sortedWords);									
+		Collections.reverse(sortedWords);
+		
+		mostFreqWords = sortedWords;
 		if(numSentences != 0) {
 			meanCharactersPerSentence = totalNumCharacters / numSentences;
 			meanWordsPerSentence = numWords / numSentences;
@@ -106,6 +112,10 @@ public class Profile {
 
 	public int getMeanCharactersPerSentence() {
 		return meanCharactersPerSentence;
+	}
+	
+	public ArrayList<Word> getMostFreqWords() {
+		return mostFreqWords;
 	}
 
 	@Override
