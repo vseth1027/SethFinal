@@ -19,7 +19,7 @@ public class ProfileGenerator {
 
 		// docs is an ArrayList of all the documents from all four authors
 		// in no particular order.
-		docs = DataReader.readTrainingFiles("D:\\JavaVidushi\\SethFinal\\authors");
+		docs = DataReader.readTrainingFiles("authors");
 		
 		// check to see whether Mr. Dobervich sent me the authors files
 		
