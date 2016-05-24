@@ -8,6 +8,7 @@ public class Profile {
 	private int meanWordsPerSentence, meanCharactersPerSentence;
 	private ArrayList<Word> mostFreqWords;
 	private final int INITIAL = 1;
+	private static final double SIMILAR = Integer.MIN_VALUE;
 	
 	private Profile(ArrayList<Document> docs) {
 		String text = "";
@@ -26,18 +27,29 @@ public class Profile {
 	// Return the n-dimensional distance between A and B
 	// Smaller numbers are more similar.
 	public static double similarity(Profile p1, Profile p2) { 
-		
+		int freqWordDiff = 0;
 		System.out.println(p1 +  " " + p2);
-//		double maxWordDiff = (double)p1.getMaxWordLength() - p2.getMaxWordLength();
-//		double minWordDiff = (double)(p1.getMinWordLength()) - p2.getMinWordLength();
-//		double meanWordLengthDiff = (double)(p1.getMeanWordLength()) - p2.getMeanWordLength();
-//		double meanWordsSentDiff = (double)(p1.getMeanWordsPerSentence()) - p2.getMeanWordsPerSentence();
-//		double meanCharacterSentDiff = (double)(p1.getMeanCharactersPerSentence()) - p2.getMeanCharactersPerSentence();
-//		
-//		return Math.sqrt( (maxWordDiff*maxWordDiff ) + (minWordDiff*minWordDiff) + (meanWordLengthDiff*meanWordLengthDiff) +
-//				(meanWordsSentDiff*meanWordsSentDiff) + (meanCharacterSentDiff*meanCharacterSentDiff));
 		
-		double diff1 = 
+		int length1 = p1.getMostFreqWords().size();
+		int length2 = p2.getMostFreqWords().size();
+		int length = Math.min(length1, length2);
+		
+		for(int i = 0; i < length; i++) {
+			Word a = p1.getMostFreqWords().get(i);
+			Word b = p2.getMostFreqWords().get(i);
+			if(!a.equals(b)) freqWordDiff++;
+		}
+			
+		double maxWordDiff = (double)p1.getMaxWordLength() - p2.getMaxWordLength();
+		double minWordDiff = (double)(p1.getMinWordLength()) - p2.getMinWordLength();
+		double meanWordLengthDiff = (double)(p1.getMeanWordLength()) - p2.getMeanWordLength();
+		double meanWordsSentDiff = (double)(p1.getMeanWordsPerSentence()) - p2.getMeanWordsPerSentence();
+		double meanCharacterSentDiff = (double)(p1.getMeanCharactersPerSentence()) - p2.getMeanCharactersPerSentence();
+			
+		return Math.sqrt( (maxWordDiff*maxWordDiff ) + (minWordDiff*minWordDiff) + (meanWordLengthDiff*meanWordLengthDiff) +
+				(meanWordsSentDiff*meanWordsSentDiff) + (meanCharacterSentDiff*meanCharacterSentDiff) +
+				(freqWordDiff*freqWordDiff));
+		
 	}
 
 	public void setFields(String text) {
@@ -122,7 +134,8 @@ public class Profile {
 	public String toString() {
 		return "Profile [maxWordLength=" + maxWordLength + ", minWordLength=" + minWordLength + ", meanWordLength="
 				+ meanWordLength + ", meanWordsPerSentence=" + meanWordsPerSentence + ", meanCharactersPerSentence="
-				+ meanCharactersPerSentence  + "]";
+				+ meanCharactersPerSentence  + "]" + "\n Most Freq Words: " + mostFreqWords.get(0) + " " + mostFreqWords.get(1) +
+				" " + mostFreqWords.get(2);
 	}
 	
 	
