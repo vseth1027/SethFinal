@@ -45,4 +45,11 @@ Day 5: 5/23/16
 - Created HashMap in Profile's setFields method
 - Began to implement word comparison by frequency
 
-To do: finish implementing n-gram comparison of words
+To do: finish implementing frequency comparison of words
+
+Day 6: 5/24/16
+- Wrote a toString method in Word
+- Made Word implement the comparable interface
+- Finished implementing comparison by word frequency in Profile
+
+To do: Begin and finish write up for this project
