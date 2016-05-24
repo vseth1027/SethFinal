@@ -10,18 +10,18 @@ public class Main {
 		ProfileGenerator.generateProfiles();
 		
 		// read training data
-		docs = DataReader.readTrainingFiles("D:\\JavaVidushi\\SethFinal\\authors"); 
+		docs = DataReader.readTrainingFiles("authors"); 
 		
 		// THIS CODE MAKES RANDOM GUESSES
 		
 		// array of all author names
 		String[] names = {"matthew_wald", "jeff_bailey", "michelle_higgins", "micheline_maynard"};
 		
-		// Tester object
+		// Tester objec
 		Tester t = new Tester();
 		
 		// Get list of unknown test documents
-		ArrayList<Document> testdocs = t.getTestDocuments("D:\\JavaVidushi\\SethFinal\\authorstest");
+		ArrayList<Document> testdocs = t.getTestDocuments("authorstest");
 
 		// HashMap for my answers
 		HashMap<Integer, String> answers = new HashMap<Integer, String>();
@@ -32,7 +32,7 @@ public class Main {
 		Profile maynardProfile = ProfileGenerator.getMaynardProfile();
 		
 
-		// Loop through document list. 
+		// Loop through document list.  
 		for (Document d:testdocs) {
 			Profile temp = Profile.createProfileFor(d);
 			
