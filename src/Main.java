@@ -32,7 +32,7 @@ public class Main {
 		Profile maynardProfile = ProfileGenerator.getMaynardProfile();
 		
 
-		// Loop through document list.  Map each document id to a random author name
+		// Loop through document list. 
 		for (Document d:testdocs) {
 			Profile temp = Profile.createProfileFor(d);
 			
