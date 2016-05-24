@@ -1,5 +1,5 @@
 
-public class Word {
+public class Word implements Comparable<Word> {
 
 	String text;
 	Integer frequency;
@@ -26,7 +26,7 @@ public class Word {
 	}
 
 	@Override
-	public int hashCode() {	// ask Mr. Dobervich what this does
+	public int hashCode() {		
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((frequency == null) ? 0 : frequency.hashCode());
@@ -54,6 +54,18 @@ public class Word {
 		} else if (!text.equals(other.text))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Word arg0) {
+		if(this.frequency < arg0.getFrequency()) return -1;
+		if(this.frequency > arg0.getFrequency()) return 1;
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Word [text=" + text + "]";
 	}
 	
 	
