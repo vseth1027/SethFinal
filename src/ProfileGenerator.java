@@ -20,7 +20,7 @@ public class ProfileGenerator {
 
 		// docs is an ArrayList of all the documents from all four authors
 		// in no particular order.
-		docs = DataReader.readTrainingFiles("../assets/authors");
+		docs = DataReader.readTrainingFiles("assets/authors");
 		
 		
 		// - Loop through docs to separate the documents by author.
