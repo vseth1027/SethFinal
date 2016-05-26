@@ -10,18 +10,16 @@ public class Main {
 		ProfileGenerator.generateProfiles();
 		
 		// read training data
-		docs = DataReader.readTrainingFiles("authors"); 
-		
-		// THIS CODE MAKES RANDOM GUESSES
+		docs = DataReader.readTrainingFiles("../assets/authors"); 
 		
 		// array of all author names
 		String[] names = {"matthew_wald", "jeff_bailey", "michelle_higgins", "micheline_maynard"};
 		
-		// Tester objec
+		// Tester object
 		Tester t = new Tester();
 		
 		// Get list of unknown test documents
-		ArrayList<Document> testdocs = t.getTestDocuments("authorstest");
+		ArrayList<Document> testdocs = t.getTestDocuments("../assets/authorstest");
 
 		// HashMap for my answers
 		HashMap<Integer, String> answers = new HashMap<Integer, String>();
