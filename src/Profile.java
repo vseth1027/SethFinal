@@ -8,7 +8,6 @@ public class Profile {
 	private int meanWordsPerSentence, meanCharactersPerSentence;
 	private ArrayList<Word> mostFreqWords;
 	private final int INITIAL = 1;
-	private static final double SIMILAR = Integer.MIN_VALUE;
 	
 	private Profile(ArrayList<Document> docs) {
 		String text = "";
@@ -53,15 +52,15 @@ public class Profile {
 	}
 
 	public void setFields(String text) {
-		int totalNumCharacters = 0, numSentences = 0, numWords = 0;
+		int totalNumCharacters = 0, numSentences = 0, numWords = 0; 
 		int minWordLength = Integer.MAX_VALUE, maxWordLength = Integer.MIN_VALUE;
 		int totalWordLengths = 0;
 		HashMap<String, Word> wordMap= new HashMap<String, Word>();
 		
-		String[] sentences = text.split("\\.");
+		String[] sentences = text.split("\\."); 	//split text into sentences
 		for(String sentence : sentences) {
 			totalNumCharacters += sentence.length();
-			String[] words = sentence.split(" ");
+			String[] words = sentence.split(" ");	//split text into words
 				
 			for(String word: words) {
 				if(word.length() < minWordLength) minWordLength = word.length();
@@ -80,7 +79,7 @@ public class Profile {
 			numSentences++;
 		}
 		
-		ArrayList<Word> sortedWords = new ArrayList<Word>();
+		ArrayList<Word> sortedWords = new ArrayList<Word>();	//sort hashmap by most frequent words
 		sortedWords.addAll(wordMap.values());							
 		Collections.sort(sortedWords);									
 		Collections.reverse(sortedWords);
