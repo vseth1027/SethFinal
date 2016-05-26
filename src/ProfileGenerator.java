@@ -9,6 +9,7 @@ public class ProfileGenerator {
 	
 		// list of all documents
 		ArrayList<Document> docs = new ArrayList<Document>();
+		
 		ArrayList<Document> docs1 = new ArrayList<Document>(); //stores work of names[0]
 		ArrayList<Document> docs2 = new ArrayList<Document>(); //stores work of names[1]
 		ArrayList<Document> docs3 = new ArrayList<Document>(); //stores work of names[2]
@@ -19,13 +20,11 @@ public class ProfileGenerator {
 
 		// docs is an ArrayList of all the documents from all four authors
 		// in no particular order.
-		docs = DataReader.readTrainingFiles("authors");
+		docs = DataReader.readTrainingFiles("../assets/authors");
 		
-		// check to see whether Mr. Dobervich sent me the authors files
 		
-		// --== Assignment #1 Code Here ==--
 		// - Loop through docs to separate the documents by author.
-		for(Document d : docs) {		// resulting list contains work of names[0]
+		for(Document d : docs) {		
 			String a = d.getAuthor();
 			if(a.equals(names[0]))	docs1.add(d);
 			if(a.equals(names[1])) 	docs2.add(d);
@@ -34,14 +33,13 @@ public class ProfileGenerator {
 		}
 		
 
-		// - Create a profile for each of the four authors using the
-		//   Profile.createProfileFor( .. ) method.
+		// - Create a profile for each of the four authors
 		waldProfile = Profile.createProfileFor(docs1);
 		baileyProfile = Profile.createProfileFor(docs2);
 		higginsProfile = Profile.createProfileFor(docs3);
 		maynardProfile = Profile.createProfileFor(docs4);
 		
-		// - Use each profile's toString() method to display the results.	
+		//display the results.	
 		System.out.println( waldProfile );
 		System.out.println( baileyProfile );
 		System.out.println( higginsProfile );
