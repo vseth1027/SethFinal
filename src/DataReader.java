@@ -5,8 +5,9 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class DataReader {
+	
 	public static ArrayList<Document> readTrainingFiles(String rootdir) {
-		// add a trailing slash if not already present
+		
 		if (!rootdir.endsWith("\\"))
 			rootdir = rootdir + "\\";
 
@@ -36,7 +37,7 @@ public class DataReader {
 
 	private static Document createDocumentFromFile(String author,
 			String filepath) {
-		//System.out.println("reading: " + filepath);
+		
 		ArrayList<Document> docs = new ArrayList<Document>();
 		Scanner scanner;
 		StringBuilder sb = new StringBuilder(500000);
