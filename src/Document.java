@@ -4,6 +4,11 @@ public class Document {
 	private String author;
 	private String text;
 		
+	public Document(String text, String author) {
+		this.text = text;
+		this.author = author;
+	}
+	
 	public String getAuthor() {
 		return author;
 	}
@@ -18,11 +23,6 @@ public class Document {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public Document(String t, String a) {
-		this.text = t;
-		this.author = a;
 	}
 
 	public void setId(int id) {
